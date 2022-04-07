@@ -1,0 +1,53 @@
+SELECT COUNT(*) AS TOTAL_ROW
+FROM customers;
+
+SELECT website
+FROM customers
+where name = 'Apple';
+
+SELECT website
+from customers
+where name = 'Apple' or name = 'Oracle' or name = 'eBay';
+
+SELECT NAME, credit_limit
+from customers
+ORDER BY credit_limit DESC;
+
+SELECT NAME, ADDRESS
+FROM customers
+where ADDRESS like '%Bangalore%';
+
+SELECT distinct JOB_TITLE
+FROM employees;
+
+SELECT COUNT(distinct JOB_TITLE)
+from employees;
+
+SELECT FIRST_NAME, JOB_TITLE
+FROM EMPLOYEES
+WHERE JOB_TITLE = 'Programmer';
+
+SELECT sum(quantity) as TOTAL_SUM, SUM(quantity * unit_price) as TOTAL_PRICE
+FROM order_items
+GROUP BY order_id
+ORDER BY sum(quantity) desc, SUM(quantity * unit_price) desc;
+
+
+SELECT FIRST_NAME, JOB_TITLE
+from employees
+where MANAGER_ID is null;
+
+
+SELECT FIRST_NAME
+from employees
+where manager_id = (select employee_id
+                        from employees
+                        where first_name = 'Mohammad');
+                      
+               
+select FIRST_NAME, JOB_TITLE
+from employees
+where (job_title = 'Sales Manager' or job_title = 'Stock Manager') and manager_id = (select employee_id
+                        from employees
+                        where first_name = 'Tommy');
+            
