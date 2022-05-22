@@ -1,0 +1,111 @@
+/*(1)*/
+select ename AS 사원이름, job AS 사원업무
+from Emp;
+
+/*(2)*/
+SELECT E.ENAME, E.SAL 
+FROM EMP E, DEPT D
+WHERE E.DEPTNO = D.DEPTNO
+AND D.DEPTNO = 30;
+
+/*(3)*/
+SELECT empno, ename, SAL , NVL(SAL+COMM, SAL) 증가액,  (SAL+(SAL * 0.1)) as 인상된_급여
+FROM EMP
+ORDER BY empno;
+
+/*(4)*/
+SELECT  ENAME , DEPTNO 
+FROM EMP 
+WHERE ENAME = 'S%';
+
+/*(5)*/
+select max(sal), min(sal), sum(sal), round(avg(sal))
+from emp;
+
+/*(6)*/
+SELECT D.DNAME, COUNT(*) 
+FROM EMP E, DEPT D 
+WHERE E.DEPTNO = D.DEPTNO
+GROUP BY D.DNAME; 
+
+/*(7)*/
+select (max(sal) - min(sal)) 차액
+from emp;
+
+/*(8)*/
+SELECT COUNT(*), SUM(SAL), ROUND(AVG(SAL))
+FROM EMP
+WHERE DEPTNO = 30
+ORDER BY DEPTNO;
+
+/*(9)*/
+SELECT deptno 부서번호, round(avg(sal)) 평균급여
+FROM emp
+GROUP BY deptno
+ORDER BY 평균급여 DESC ;
+
+/*(10)*/
+SELECT JOB, ROUND(AVG(SAL)) as 평균급여
+FROM EMP 
+WHERE JOB != 'SALESMAN'
+GROUP BY JOB 
+HAVING SUM(SAL) >= 3000 
+ORDER BY 평균급여 DESC;
+
+/*(11)*/
+Select count(empno)
+from emp
+where mgr is not null;
+
+/*(12)*/
+SELECT ename, sal, comm, (sal*12 + comm)
+FROM emp
+WHERE comm IS NOT NULL
+ORDER BY (sal*12 + comm) DESC;
+
+/*(13)*/
+select deptno as 부서번호, job as 업무이름, count(*) as 인원수
+from emp
+group by deptno, job
+order by deptno;
+
+/*(14)*/
+SELECT D.DNAME
+FROM EMP E RIGHT JOIN DEPT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE E.EMPNO IS NULL;
+
+/*(15)*/
+select job, count(*)
+from emp
+group by job having count(*) >= 4;
+
+/*(16)*/
+SELECT ENAME 
+FROM EMP
+WHERE EMPNO BETWEEN 7400 AND 7600;
+
+/*(17)*/
+select ename as 사원이름, dname as 부서이름
+from emp, dept
+where emp.deptno = dept.deptno;
+
+/*(18)*/
+SELECT ENAME 
+FROM EMP
+WHERE MGR IS NULL OR
+JOB = 'SALESMAN';
+
+/*(19)*/
+select ename
+from emp
+where sal > (select sal
+            from emp
+            where ename = 'SCOTT');
+
+/*(20)*/
+SELECT D.DNAME 
+FROM EMP E, DEPT D
+WHERE 
+   E.ENAME = 'SCOTT' AND 
+   E.DEPTNO = d.DEPTNO;
